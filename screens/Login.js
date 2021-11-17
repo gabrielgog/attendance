@@ -2,13 +2,14 @@ import axios from "axios";
 import React from "react";
 import { SafeAreaView, Button, StyleSheet, TextInput } from "react-native";
 
-const Login = () => {
+const Login = (props) => {
   const loginApi = "https://reqres.in/api/login";
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState();
 
   async function loginStatus() {
+      console.log(email);
     let response = await axios
       .post(loginApi, {
         email: email,
@@ -17,7 +18,7 @@ const Login = () => {
       .then((response) => {
         // Handle success.
 
-        console.log(JSON.stringify(response) + "hello");
+        console.log(JSON.stringify(response.data.token) + "hello");
       })
       .catch((error) => {
         // Handle error.
@@ -37,7 +38,10 @@ const Login = () => {
         placeholder="password"
         secureTextEntry={true}
       />
-      <Button title="Login" color="#841584">
+      <Button title="Login" color="#841584"
+                  onPress={loginStatus}
+
+      >
         Login
       </Button>
     </SafeAreaView>
